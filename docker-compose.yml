@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+
+  api:
+    command: >
+      bash -c "python3 migrate.py && python3 api.py"
+    build: .
+    ports:
+    - "5000:5000"
+    volumes:
+    - .:/codigo
+    links:
+    - postgres
+
+
+  postgres:
+    image: onjin/alpine-postgres:9.5
+    ports:
+    - 5432:5432
+    volumes:
+    - localpostgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: localpostgres
+      POSTGRES_PASSWORD: localpostgres
+
+volumes:
+  localpostgres:
