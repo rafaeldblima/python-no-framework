@@ -50,13 +50,14 @@ DATABASE_PASSWORD=localpostgres
 DATABASE_HOST=postgres
 DATABASE_PORT=5432
 ```
-3 - Utilize o comando abaixo para subir a API e o banco de dados. 
+3 - Utilize o comando abaixo para subir a API, o banco de dados e o frontend. 
 ```bash
 [sudo] docker-compose up
 ```
+[P.S.: Repositório do frontend: https://github.com/rafaeldblima/front-angular-eleicoes]
 
 ##### URLS Partidos
-Base = http://localhost:5000/
+Base = http://localhost:5000/api
 
 | Name   | Method      | URL                    |
 | ---    | ---         | ---                    |

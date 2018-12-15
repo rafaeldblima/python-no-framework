@@ -17,17 +17,17 @@ def get_path(path, request_type, data=None):
         get_pk = re.findall("\d+", path)
 
         paths = [
-            ('/', welcome.get()),
-            ('/partidos', partidos.get()),
+            ('/api/', welcome.get()),
+            ('/api/partidos', partidos.get()),
         ]
         if get_pk:
             pk = get_pk[0]
             paths = [
-                ('/partidos/{}'.format(pk), partido.get(pk=pk)),
+                ('/api/partidos/{}'.format(pk), partido.get(pk=pk)),
             ]
 
             if any(path in url for url in paths):
-                if path == '/partidos/{}'.format(pk):
+                if path == '/api/partidos/{}'.format(pk):
 
                     return paths[0][1].status_code, paths[0][1].data
                 else:
@@ -35,10 +35,10 @@ def get_path(path, request_type, data=None):
 
         if any(path in url for url in paths):
 
-            if path == '/':
+            if path == '/api/':
                 return paths[0][1].status_code, paths[0][1].data
 
-            elif path == '/partidos':
+            elif path == '/api/partidos':
 
                 return paths[1][1].status_code, paths[1][1].data
 
@@ -51,11 +51,11 @@ def get_path(path, request_type, data=None):
             return HTTP_401_UNAUTHORIZED, UNAUTHORIZED
 
         paths = [
-            ('/partidos', create_partido.post(data)),
+            ('/api/partidos', create_partido.post(data)),
         ]
 
         if any(path in url for url in paths):
-            if path == '/partidos':
+            if path == '/api/partidos':
                 return paths[0][1].status_code, paths[0][1].data
 
         else:
@@ -67,11 +67,11 @@ def get_path(path, request_type, data=None):
         if get_pk:
             pk = get_pk[0]
             paths = [
-                ('/partidos/{}'.format(pk), update_partido.put(data=data, pk=pk)),
+                ('/api/partidos/{}'.format(pk), update_partido.put(data=data, pk=pk)),
             ]
 
             if any(path in url for url in paths):
-                if path == '/partidos/{}'.format(pk):
+                if path == '/api/partidos/{}'.format(pk):
                     return paths[0][1].status_code, paths[0][1].data
                 else:
                     return HTTP_404_NOT_FOUND, URL_NOT_FOUND
@@ -84,11 +84,11 @@ def get_path(path, request_type, data=None):
         if get_pk:
             pk = get_pk[0]
             paths = [
-                ('/partidos/{}'.format(pk), update_partido.patch(data=data, pk=pk)),
+                ('/api/partidos/{}'.format(pk), update_partido.patch(data=data, pk=pk)),
             ]
 
             if any(path in url for url in paths):
-                if path == '/partidos/{}'.format(pk):
+                if path == '/api/partidos/{}'.format(pk):
                     return paths[0][1].status_code, paths[0][1].data
                 else:
                     return HTTP_404_NOT_FOUND, URL_NOT_FOUND
@@ -101,9 +101,9 @@ def get_path(path, request_type, data=None):
         if get_pk:
             pk = get_pk[0]
             paths = [
-                ('/partidos/{}'.format(pk), delete_partido.delete(pk=pk)),
+                ('/api/partidos/{}'.format(pk), delete_partido.delete(pk=pk)),
             ]
-            if path == '/partidos/{}'.format(pk):
+            if path == '/api/partidos/{}'.format(pk):
                 return paths[0][1].status_code, paths[0][1].data
 
             return HTTP_404_NOT_FOUND, URL_NOT_FOUND
@@ -114,24 +114,24 @@ def get_path(path, request_type, data=None):
         get_pk = re.findall("\d+", path)
 
         paths = [
-            ('/', welcome.get()),
-            ('/partidos', partidos.get()),
+            ('/api/', welcome.get()),
+            ('/api/partidos', partidos.get()),
         ]
         if get_pk:
             pk = get_pk[0]
             paths = [
-                ('/partidos/{}'.format(pk), partido.get(pk=pk)),
+                ('/api/partidos/{}'.format(pk), partido.get(pk=pk)),
             ]
             if any(path in url for url in paths):
-                if path == '/partidos/{}'.format(pk):
+                if path == '/api/partidos/{}'.format(pk):
                     return HTTP_200_OK, OPTIONS_PK_INFO, OPTIONS_PK_INFO_HEADERS
 
         if any(path in url for url in paths):
 
-            if path == '/':
+            if path == '/api/':
                 return HTTP_200_OK, BASE_INFO, BASE_INFO_HEADERS
 
-            elif path == '/partidos':
+            elif path == '/api/partidos':
 
                 return HTTP_200_OK, OPTIONS_INFO, OPTIONS_INFO_HEADERS
 
