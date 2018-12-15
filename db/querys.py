@@ -13,9 +13,10 @@ def get_all_partidos():
     for item in db.fetchall():
         data = dict()
         data['id'] = item[0]
-        data['name'] = item[1]
+        data['nome'] = item[1]
         data['sigla'] = item[2]
-        data['fundo'] = float(item[3])
+        if item[3]:
+            data['fundo'] = float(item[3])
         data['numero'] = item[4]
         data['created_at'] = item[5].strftime('%Y-%m-%dT%H:%M:%S')
         partidos.append(data)
@@ -31,9 +32,10 @@ def get_partido_by_id(partido_id):
     for item in db.fetchall():
         data = dict()
         data['id'] = item[0]
-        data['name'] = item[1]
+        data['nome'] = item[1]
         data['sigla'] = item[2]
-        data['fundo'] = float(item[3])
+        if item[3]:
+            data['fundo'] = float(item[3])
         data['numero'] = item[4]
         data['created_at'] = item[5].strftime('%Y-%m-%dT%H:%M:%S')
         partidos.append(data)
