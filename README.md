@@ -54,7 +54,7 @@ DATABASE_PORT=5432
 ```bash
 [sudo] docker-compose up
 ```
-[P.S.: Repositório do frontend: https://github.com/rafaeldblima/front-angular-eleicoes]
+[P.S.: Repositório do frontend: https://github.com/rafaeldblima/front-angular-eleicoes . Aplicação de frontend pode ser acessada em http://localhost]
 
 ##### URLS Partidos
 Base = http://localhost:5000/api
