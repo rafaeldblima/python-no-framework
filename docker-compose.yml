@@ -1,27 +1,43 @@
 version: "3.7"
+networks:
+  partidos:
 services:
 
   api:
     command: >
       bash -c "python3 migrate.py && python3 api.py"
     build: .
+    networks:
+      - partidos
     ports:
-    - "5000:5000"
+      - "5000:5000"
     volumes:
-    - .:/codigo
+      - .:/codigo
     links:
-    - postgres
+      - postgres
 
 
   postgres:
     image: onjin/alpine-postgres:9.5
     ports:
-    - 5432:5432
+      - 5432:5432
+    networks:
+      - partidos
     volumes:
-    - localpostgres:/var/lib/postgresql/data
+      - localpostgres:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: localpostgres
       POSTGRES_PASSWORD: localpostgres
+
+  app:
+    image: rafaeldbl/partido-front
+    networks:
+      - partidos
+    ports:
+      - "80:80"
+    volumes:
+      - ./configs/nginx:/etc/nginx/conf.d
+    restart: always
 
 volumes:
   localpostgres:
