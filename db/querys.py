@@ -43,25 +43,37 @@ def get_partido_by_id(partido_id):
 
 
 def add_partido(data):
-    db.execute("INSERT INTO partido (nome, sigla, fundo, numero, created_at) VALUES (%s, %s, %s, %s, %s)",
-               (data['nome'], data['sigla'], data['fundo'], data['numero'], datetime.datetime.now()))
-    db_connection.commit()
+    try:
+        db.execute("INSERT INTO partido (nome, sigla, fundo, numero, created_at) VALUES (%s, %s, %s, %s, %s)",
+                   (data['nome'], data['sigla'], data['fundo'], data['numero'], datetime.datetime.now()))
+        db_connection.commit()
 
-    status_code = 201
-    return PARTIDO_CREATED, status_code
+        status_code = 201
+        return PARTIDO_CREATED, status_code
+    except Exception as e:
+        db_connection.rollback()
+        return {'errors': e.args}, 400
 
 
 def update_partido(data):
-    db.execute("UPDATE partido SET nome=%s, sigla=%s, fundo=%s, numero=%s WHERE id=%s",
-               (data['nome'], data['sigla'], data['fundo'], data['numero'], data['id']))
-    db_connection.commit()
+    try:
+        db.execute("UPDATE partido SET nome=%s, sigla=%s, fundo=%s, numero=%s WHERE id=%s",
+                   (data['nome'], data['sigla'], data['fundo'], data['numero'], data['id']))
+        db_connection.commit()
 
-    status_code = 200
-    return PARTIDO_UPDATED, status_code
+        status_code = 200
+        return PARTIDO_UPDATED, status_code
+    except Exception as e:
+        db_connection.rollback()
+        return {'errors': e.args}, 400
 
 
 def delete_partido(data):
-    db.execute("DELETE FROM partido where id=%s" % data['id'])
-    db_connection.commit()
-    status_code = 200
-    return PARTIDO_DELETED, status_code
+    try:
+        db.execute("DELETE FROM partido where id=%s" % data['id'])
+        db_connection.commit()
+        status_code = 200
+        return PARTIDO_DELETED, status_code
+    except Exception as e:
+        db_connection.rollback()
+        return {'errors': e.args}, 400
