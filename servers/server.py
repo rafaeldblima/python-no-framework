@@ -64,8 +64,10 @@ class MyHandler(BaseHTTPRequestHandler):
         self.send_response(status_code)
         self.send_header('WWW-Authenticate', 'Basic realm="Rafael Lima"')
         self.send_header('Content-Type', 'application/json')
+        self.send_header('Access-Control-Allow-Headers', 'Cache-Control,Content-Type,Authorization')
+        self.send_header('Access-Control-Allow-Origin', '*')
         if headers:
-            self.send_header('Allow', headers)
+            self.send_header('Access-Control-Allow-Methods', headers)
         self.end_headers()
         content = json.dumps(data)
         return bytes(content, 'UTF-8')
